@@ -8,7 +8,7 @@ import win32api, win32con
 
 screen = (510, 205, 580, 245)
 
-#Grabbs image with the size and position of the specified box.
+#Grabs image with the size and position of the specified box.
 def grabImage(box):
 	im = ImageGrab.grab(box)
 	return im	
@@ -23,7 +23,7 @@ while True:
 	image = grabImage(screen)
 	setOFPixels = set(image.convert('L').getdata())
 	if len(setOFPixels) > 1:
-		image.save('bild' + str(bild) + '.jpeg', 'JPEG')
+		#image.save('bild' + str(bild) + '.jpeg', 'JPEG')
 		bild = bild + 1
 		win32api.keybd_event(win32con.VK_SPACE, 0, win32con.KEYEVENTF_EXTENDEDKEY | 0, 0)
 		time.sleep(0.1)
