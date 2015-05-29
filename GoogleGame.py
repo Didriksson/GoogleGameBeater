@@ -17,7 +17,7 @@ def setUp():
 	posX = image.size[0]/2 - 300
 	posY = 125
 	gamescreen = (posX,posY, posX + gameWidth, posY + gameHeigth)
-	checkForObstacleUpperLeft = (gameWidth/100 * 30, gameHeigth/100 * 70)
+	checkForObstacleUpperLeft = (gameWidth/100 * 25, gameHeigth/100 * 70)
 
 #Draws the box which is used to detect a tree.	
 def drawRectangle(img):
@@ -25,13 +25,7 @@ def drawRectangle(img):
 	img = np.array(img)
 	img = cv2.rectangle(img,checkForObstacleUpperLeft, (checkForObstacleUpperLeft[0] + 50, checkForObstacleUpperLeft[1] + 50),(255,0,0),1)
 	return img
-	"""
-	#checkForObstacleUpperLeft[0]:checkForObstacleUpperLeft[0]+50, checkForObstacleUpperLeft[1]:checkForObstacleUpperLeft[1]+50
-	print checkForObstacleUpperLeft[1]
-	box = img[70:120, 180:230]
-	print box
-	cv2.imwrite('box.jpeg', box)
-	"""
+
 #Saves using OpenCV
 def saveImage(img, path):
 	cv2.imwrite(path,img)
@@ -55,12 +49,13 @@ grabImage(gamescreen).save('helabilden.jpeg', 'JPEG')
 #some obstacle is in the way - i.e. JUMP!
 while True:
 	image = np.array(grabImage(gamescreen))
-	box = image[70:120, 180:230]
+	box = image[checkForObstacleUpperLeft[1]:checkForObstacleUpperLeft[1]+50, checkForObstacleUpperLeft[0]:checkForObstacleUpperLeft[0]+50]
 	edges = cv2.Canny(box,100,200)
-	#cv2.imwrite('bild' + str(bild) + '.jpeg',box)
 	#bild = bild +1 
 	if np.unique(edges).size > 1:
-		#save(drawRectangle(image), 'bild' + str(bild) + '.jpeg')
+		#saveImage(drawRectangle(image), 'bild' + str(bild) + '.jpeg')
+		#cv2.imwrite('box' + str(bild) + '.jpeg',box)
 		bild = bild + 1
 		jump()
+		time.sleep(0.1)
                 
