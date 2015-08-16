@@ -24,11 +24,10 @@ def drawRectangle(img):
 	global checkForObstacleUpperLeft
 	img = np.array(img)
 	img = cv2.rectangle(img,
-                        checkForObstacleUpperLeft,
-                        (checkForObstacleUpperLeft[0] + 50,
-                         checkForObstacleUpperLeft[1] + 50),
-                        (255,0,0),1
-                       )
+						checkForObstacleUpperLeft,
+						(checkForObstacleUpperLeft[0] + 50,
+						checkForObstacleUpperLeft[1] + 50),
+						(255,0,0),1)
 	return img
 
 #Saves using OpenCV
@@ -42,10 +41,10 @@ def grabImage(box = None):
 #Pushes space and waits 0.1 and then send command for releasing space.
 def jump():
 	win32api.keybd_event(win32con.VK_SPACE,
-                         0,
-                         win32con.KEYEVENTF_EXTENDEDKEY | 0, 0)
+						 0,
+						 win32con.KEYEVENTF_EXTENDEDKEY | 0, 0)
 	time.sleep(0.1)
-    keyEvent = win32con.KEYEVENTF_EXTENDEDKEY | win32con.KEYEVENTF_KEYUP
+	keyEvent = win32con.KEYEVENTF_EXTENDEDKEY | win32con.KEYEVENTF_KEYUP
 	win32api.keybd_event(win32con.VK_SPACE, 0, keyEvent, 0)
 
 setUp()
@@ -59,7 +58,7 @@ grabImage(gamescreen).save('helabilden.jpeg', 'JPEG')
 while True:
 	image = np.array(grabImage(gamescreen))
 	box = image[checkForObstacleUpperLeft[1]:checkForObstacleUpperLeft[1]+50,
-                checkForObstacleUpperLeft[0]:checkForObstacleUpperLeft[0]+50]
+				checkForObstacleUpperLeft[0]:checkForObstacleUpperLeft[0]+50]
 	edges = cv2.Canny(box,100,200)
 	#bild = bild +1
 	if np.unique(edges).size > 1:
